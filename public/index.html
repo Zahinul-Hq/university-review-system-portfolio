@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="solid" data-motion>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Chirpy: university reviews for students</title>
+    <meta name="description" content="Create an account to select your university and department. University verification is separate from signup.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chirpy: university reviews for students">
+    <meta property="og:description" content="Create an account to select your university and department. University verification is separate from signup.">
+    <meta property="og:image" content="./assets/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="site-kind" content="software">
+    <meta name="page-type" content="software">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="./assets/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/system.css">
+    <link rel="stylesheet" href="./assets/motion/motion.css">
+    <link rel="stylesheet" href="./assets/layout/layout.css">
+    <link rel="stylesheet" href="./styles/theme.css">
+    <link rel="stylesheet" href="./styles/auth.css">
+    <script>
+      document.documentElement.classList.add("m-enter");
+      setTimeout(() => document.documentElement.classList.add("m-enter-done"), 700);
+    </script>
+  </head>
+  <body class="auth-body">
+    <header class="auth-header">
+      <div class="wrap auth-header__inner">
+        <a class="skip-link" href="#auth-main">Skip to content</a>
+        <a class="auth-brand" href="./index.html" aria-label="Chirpy home">
+          <img src="./assets/logo.png" alt="" width="44" height="44">
+          <span>Chirpy</span>
+        </a>
+        <nav class="auth-header__nav" aria-label="Primary navigation">
+          <a class="auth-header__nav-link" href="./posts.html">Reviews</a>
+          <a class="auth-header__nav-link" href="./university-reviews.html">
+            <span class="auth-header__nav-full">University ratings</span>
+            <span class="auth-header__nav-short">Ratings</span>
+          </a>
+          <a class="auth-header__nav-link" href="./rate-university.html">Rate</a>
+          <a class="auth-header__nav-link auth-header__nav-link--active" href="./index.html" aria-current="page">Account</a>
+          <a class="auth-header__nav-link" href="./admin.html">Admin</a>
+        </nav>
+        <span class="auth-header__label">University Review System</span>
+      </div>
+    </header>
+
+    <main id="auth-main">
+      <section class="hero auth-screen" data-enter aria-labelledby="auth-title">
+        <div class="wrap auth-shell">
+          <div class="auth-intro">
+            <div class="auth-intro__copy">
+              <p class="auth-kicker">For university students</p>
+              <h1 id="auth-title">University reviews for students</h1>
+              <p class="auth-lead">Choose one university and department when you sign up. University verification is separate from your account.</p>
+            </div>
+
+            <div class="profile-flow" aria-label="Signup profile selections">
+              <div class="profile-flow__item">
+                <span class="profile-flow__label">Your university</span>
+                <span class="profile-flow__value">Selected at signup</span>
+              </div>
+              <span class="profile-flow__line" aria-hidden="true"></span>
+              <div class="profile-flow__item">
+                <span class="profile-flow__label">Your department</span>
+                <span class="profile-flow__value">Part of your profile</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="auth-content" id="auth-panel">
+            <div class="auth-content__head">
+              <p class="auth-kicker auth-kicker--dark">Your account</p>
+              <h2>Sign in or sign up</h2>
+            </div>
+
+            <div class="auth-session" id="session-panel" hidden>
+              <p class="auth-session__message" id="session-message" role="status" tabindex="-1"></p>
+              <div class="auth-session__actions">
+                <a class="btn btn--primary" id="admin-session-btn" href="./admin.html" hidden>Admin Control Panel</a>
+                <a class="btn btn--primary" href="./posts.html">Browse reviews</a>
+                <a class="btn btn--secondary" href="./university-reviews.html">University ratings</a>
+                <a class="btn btn--secondary" href="./rate-university.html">Rate university</a>
+                <button class="btn btn--secondary" id="logout-button" type="button">Log out</button>
+              </div>
+            </div>
+
+            <div class="auth-tabs" role="tablist" aria-label="Account options">
+              <button class="auth-tab" id="login-tab" type="button" role="tab" aria-selected="true" aria-controls="login-panel" tabindex="0">Log in</button>
+              <button class="auth-tab" id="signup-tab" type="button" role="tab" aria-selected="false" aria-controls="signup-panel" tabindex="-1">Sign up</button>
+            </div>
+
+            <section class="auth-form-panel" id="login-panel" role="tabpanel" aria-labelledby="login-tab">
+              <form class="auth-form" id="login-form" novalidate>
+                <div class="field">
+                  <label for="login-identifier">Username or email</label>
+                  <input id="login-identifier" name="identifier" type="text" autocomplete="username" required aria-describedby="login-identifier-error" data-required-error="Enter your username or email.">
+                  <p class="field__error" id="login-identifier-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="login-password">Password</label>
+                  <input id="login-password" name="password" type="password" autocomplete="current-password" required aria-describedby="login-password-error" data-required-error="Enter your password.">
+                  <p class="field__error" id="login-password-error" hidden></p>
+                </div>
+                <button class="btn btn--primary auth-submit" type="submit">Log in</button>
+                <p class="form__status" id="login-status" role="status" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <section class="auth-form-panel" id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
+              <form class="auth-form" id="signup-form" novalidate>
+                <div class="field">
+                  <label for="signup-username">Username</label>
+                  <input id="signup-username" name="username" type="text" autocomplete="username" minlength="6" pattern="(?=.*[A-Za-z])[A-Za-z0-9._]{6,}" required aria-describedby="signup-username-help signup-username-error" data-required-error="Enter a username." data-pattern-error="Use at least 6 characters: letters, numbers, dots, or underscores. Include a letter.">
+                  <p class="field__help" id="signup-username-help">At least 6 characters; letters, numbers, dots, or underscores. Include a letter.</p>
+                  <p class="field__error" id="signup-username-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="signup-email">Email address</label>
+                  <input id="signup-email" name="emailAddress" type="email" autocomplete="email" required aria-describedby="signup-email-error" data-required-error="Enter your email address." data-type-error="Enter an email address in the correct format.">
+                  <p class="field__error" id="signup-email-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="signup-password">Password</label>
+                  <input id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}" required aria-describedby="signup-password-help signup-password-error" data-required-error="Enter a password." data-pattern-error="Use at least 8 characters, including an uppercase letter, a number, and a special character.">
+                  <p class="field__help" id="signup-password-help">At least 8 characters, with an uppercase letter, a number, and a special character.</p>
+                  <p class="field__error" id="signup-password-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="signup-university">University</label>
+                  <select id="signup-university" name="universityId" required disabled aria-describedby="university-note signup-university-error" data-required-error="Choose your university.">
+                    <option value="">Loading universities</option>
+                  </select>
+                  <p class="field__help" id="university-note">Choose your university first.</p>
+                  <p class="field__error" id="signup-university-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="signup-department">Department</label>
+                  <select id="signup-department" name="departmentId" required disabled aria-describedby="department-note signup-department-error" data-required-error="Choose your department.">
+                    <option value="">Choose a university first</option>
+                  </select>
+                  <p class="field__help" id="department-note">Choose a department offered by your university.</p>
+                  <p class="field__error" id="signup-department-error" hidden></p>
+                </div>
+                <button class="btn btn--primary auth-submit" id="signup-submit" type="submit" disabled>Sign up</button>
+                <p class="form__status" id="signup-status" role="status" aria-live="polite"></p>
+              </form>
+              <div class="auth-verification" id="signup-verification" hidden>
+                <h3>Check your email</h3>
+                <p id="signup-verification-message" role="status" aria-live="polite"></p>
+                <button class="btn btn--secondary" id="resend-verification-button" type="button">Resend verification email</button>
+                <p class="form__status" id="resend-verification-status" role="status" aria-live="polite"></p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./assets/system.js"></script>
+    <script type="module" src="./assets/motion/motion.js"></script>
+    <script type="module" src="./scripts/auth-page.js"></script>
+  </body>
+</html>

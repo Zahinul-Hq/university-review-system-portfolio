@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="solid" data-motion>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Chirpy: Rate your university</title>
+    <meta name="description" content="Rate your university across its active review categories.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chirpy: Rate your university">
+    <meta property="og:description" content="Submit one rating for your university across every active category.">
+    <meta property="og:image" content="./assets/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="site-kind" content="software">
+    <meta name="page-type" content="software">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="./assets/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/system.css">
+    <link rel="stylesheet" href="./assets/motion/motion.css">
+    <link rel="stylesheet" href="./assets/layout/layout.css">
+    <link rel="stylesheet" href="./styles/theme.css">
+    <link rel="stylesheet" href="./styles/rate-university.css">
+    <script>
+      document.documentElement.classList.add("m-enter");
+      setTimeout(() => document.documentElement.classList.add("m-enter-done"), 700);
+    </script>
+  </head>
+  <body class="rating-body">
+    <header class="rating-header">
+      <div class="wrap rating-header__inner">
+        <a class="skip-link" href="#rating-main">Skip to content</a>
+        <a class="rating-brand" href="./index.html" aria-label="Chirpy account">
+          <img src="./assets/logo.png" alt="" width="40" height="40">
+          <span>Chirpy</span>
+        </a>
+        <nav class="rating-nav" aria-label="Primary navigation">
+          <a class="rating-nav__link" href="./posts.html">Reviews</a>
+          <a class="rating-nav__link" href="./university-reviews.html">
+            <span class="rating-nav__full">University ratings</span>
+            <span class="rating-nav__short">Ratings</span>
+          </a>
+          <a class="rating-nav__link rating-nav__link--active" href="./rate-university.html" aria-current="page">
+            <span class="rating-nav__full">Rate university</span>
+            <span class="rating-nav__short">Rate</span>
+          </a>
+          <a class="rating-nav__link rating-nav__account" href="./index.html">Account</a>
+          <a class="rating-nav__link" href="./admin.html">Admin</a>
+        </nav>
+        <div class="rating-user" id="rating-user" hidden>
+          <span id="rating-username"></span>
+          <button class="btn btn--secondary btn--sm" id="rating-logout" type="button">Log out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="rating-main" id="rating-main">
+      <section class="hero rating-intro" data-enter aria-labelledby="rating-title">
+        <div class="wrap rating-intro__inner">
+          <div class="rating-intro__copy">
+            <p class="rating-kicker">Student ratings</p>
+            <h1 id="rating-title">Rate your university</h1>
+            <p class="rating-lead">Choose a whole number from 1 to 5 for every active category.</p>
+          </div>
+          <div class="rating-campus" aria-live="polite">
+            <span class="rating-campus__label">Your university</span>
+            <strong id="rating-university-name">Checking your account</strong>
+            <span id="rating-department-name"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="rating-workspace" aria-label="University rating form">
+        <div class="wrap rating-layout">
+          <section class="rating-card" aria-labelledby="rating-form-title">
+            <header class="rating-card__head">
+              <div>
+                <p class="rating-kicker">One submission per student</p>
+                <h2 id="rating-form-title">Score each category</h2>
+              </div>
+              <span class="rating-scale-note">1 low · 5 high</span>
+            </header>
+
+            <div class="rating-gate" id="rating-gate" role="status" aria-live="polite">
+              <p id="rating-gate-message">Loading your review form.</p>
+              <a class="btn btn--primary" id="rating-gate-link" href="./index.html" hidden>Sign in to rate</a>
+              <button class="btn btn--secondary" id="rating-retry" type="button" hidden>Retry</button>
+            </div>
+
+            <form class="rating-form" id="rating-form" novalidate hidden>
+              <div class="rating-fields" id="rating-fields"></div>
+              <div class="rating-form__footer">
+                <p class="rating-form__note">Your ratings will be added to your university’s category averages.</p>
+                <button class="btn btn--primary" id="rating-submit" type="submit">Submit ratings</button>
+              </div>
+              <p class="form__status" id="rating-form-status" role="status" aria-live="polite"></p>
+            </form>
+
+            <div class="rating-complete" id="rating-complete" hidden>
+              <span class="rating-complete__mark" aria-hidden="true">✓</span>
+              <div>
+                <h3 id="rating-complete-title">Ratings saved</h3>
+                <p id="rating-complete-message"></p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./assets/system.js"></script>
+    <script type="module" src="./assets/motion/motion.js"></script>
+    <script type="module" src="./scripts/rate-university.js"></script>
+  </body>
+</html>

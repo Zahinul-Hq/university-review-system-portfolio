@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="solid" data-motion>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Chirpy: University ratings</title>
+    <meta name="description" content="Compare university ratings and see category averages from student submissions.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chirpy: University ratings">
+    <meta property="og:description" content="Compare university ratings and see category averages from student submissions.">
+    <meta property="og:image" content="./assets/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="site-kind" content="software">
+    <meta name="page-type" content="software">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="./assets/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/system.css">
+    <link rel="stylesheet" href="./assets/motion/motion.css">
+    <link rel="stylesheet" href="./assets/layout/layout.css">
+    <link rel="stylesheet" href="./styles/theme.css">
+    <link rel="stylesheet" href="./styles/rate-university.css">
+    <link rel="stylesheet" href="./styles/university-reviews.css">
+    <script>
+      document.documentElement.classList.add("m-enter");
+      setTimeout(() => document.documentElement.classList.add("m-enter-done"), 700);
+    </script>
+  </head>
+  <body class="rating-body">
+    <header class="rating-header">
+      <div class="wrap rating-header__inner">
+        <a class="skip-link" href="#university-results-main">Skip to content</a>
+        <a class="rating-brand" href="./index.html" aria-label="Chirpy home">
+          <img src="./assets/logo.png" alt="" width="40" height="40">
+          <span>Chirpy</span>
+        </a>
+        <nav class="rating-nav" aria-label="Primary navigation">
+          <a class="rating-nav__link" href="./posts.html">Reviews</a>
+          <a class="rating-nav__link rating-nav__link--active" href="./university-reviews.html" aria-current="page">
+            <span class="rating-nav__full">University ratings</span>
+            <span class="rating-nav__short">Ratings</span>
+          </a>
+          <a class="rating-nav__link" href="./rate-university.html">
+            <span class="rating-nav__full">Rate university</span>
+            <span class="rating-nav__short">Rate</span>
+          </a>
+          <a class="rating-nav__link rating-nav__account" href="./index.html">Account</a>
+          <a class="rating-nav__link" href="./admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="rating-main university-results-main" id="university-results-main">
+      <section class="hero rating-intro" data-enter aria-labelledby="university-results-title">
+        <div class="wrap rating-intro__inner">
+          <div class="rating-intro__copy">
+            <p class="rating-kicker">Student ratings</p>
+            <h1 id="university-results-title">University ratings</h1>
+            <p class="rating-lead">Compare overall ratings, then select a university for its category averages.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="university-results-section" aria-labelledby="university-list-title">
+        <div class="wrap">
+          <div class="university-results__intro">
+            <div>
+              <p class="rating-kicker">All universities</p>
+              <h2 id="university-list-title">Ratings by university</h2>
+            </div>
+            <p class="university-results__note">Overall ratings and rater counts come from submitted student reviews.</p>
+          </div>
+
+          <p class="university-results__status" id="university-results-status" role="status" aria-live="polite">Loading university ratings.</p>
+          <button class="btn btn--secondary university-results__retry" id="university-results-retry" type="button" hidden>Retry loading universities</button>
+
+          <div class="university-results__layout">
+            <ul class="university-list" id="university-list" aria-label="Universities"></ul>
+
+            <section class="rating-summary university-detail" id="university-detail" aria-labelledby="university-detail-title" hidden aria-busy="true">
+              <header class="rating-summary__head">
+                <div>
+                  <p class="rating-kicker" id="university-detail-short-name"></p>
+                  <h2 id="university-detail-title"></h2>
+                </div>
+                <a class="link university-detail__back" href="./university-reviews.html">All universities</a>
+              </header>
+
+              <div class="university-detail__overall">
+                <div>
+                  <p class="rating-kicker">Overall rating</p>
+                  <p class="university-detail__score" id="university-overall-score"></p>
+                </div>
+                <p class="university-detail__count" id="university-rater-count"></p>
+              </div>
+
+              <div class="university-detail__categories">
+                <div class="university-detail__categories-head">
+                  <h3>Category averages</h3>
+                  <span class="rating-summary__scale">out of 5</span>
+                </div>
+                <p class="rating-summary__intro">Each category shows its average score and number of student ratings.</p>
+                <p class="university-detail__status" id="university-detail-status" role="status" aria-live="polite">Loading category averages.</p>
+                <button class="btn btn--secondary university-detail__retry" id="university-detail-retry" type="button" hidden>Retry category averages</button>
+                <div class="rating-averages" id="university-averages" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <p class="university-detail-empty" id="university-detail-empty">Select a university to see its category averages.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./assets/system.js"></script>
+    <script type="module" src="./assets/motion/motion.js"></script>
+    <script type="module" src="./scripts/university-reviews.js"></script>
+  </body>
+</html>

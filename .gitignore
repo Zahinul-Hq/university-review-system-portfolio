@@ -1,0 +1,42 @@
+# Dependencies and builds
+node_modules/
+dist/
+coverage/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+server.log
+
+# Database backups
+*.sql
+*.dump
+*.backup
+*.bak
+*.sqlite
+*.db
+
+# Private documentation
+docs/
+URS_Context.md
+Implementationcontext.md
+
+AGENTS.md
+CLAUDE.md
+.agents/
+.taste-skill/
+skills-lock.json
+
+# Proprietary scoring implementation
+/src/modules/scoreSystem/
+src/db/queries/scoreSystem.queries.ts
+tests/scoreSystem.service.test.ts
+/tests/scoreSystem/
+
+# Local configuration
+.neon
+

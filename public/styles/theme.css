@@ -1,0 +1,40 @@
+:root {
+  --p-bg: #ffffff;
+  --p-surface: #f3f3f3;
+  --p-ink: #232323;
+  --p-muted: #686868;
+  --p-accent: #a1ffcb;
+  --p-accent-ink: #232323;
+  --p-action: #232323;
+  --p-action-ink: #ffffff;
+  --p-inv-bg: #232323;
+  --p-inv-surface: #303030;
+  --p-inv-ink: #ffffff;
+  --p-inv-muted: #a4a4a4;
+  --p-inv-accent: #a1ffcb;
+  --p-inv-accent-ink: #232323;
+  --p-inv-action: #a1ffcb;
+  --p-inv-action-ink: #232323;
+  --font-display: "Manrope", system-ui, sans-serif;
+  --font-text: "Manrope", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    monospace;
+  --display-weight: 500;
+  --display-tracking: -0.035em;
+  --display-tracking-xl: -0.045em;
+  --ly-scale: 0.97;
+}
+
+.app-nav__short {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .app-nav__full {
+    display: none;
+  }
+
+  .app-nav__short {
+    display: inline;
+  }
+}

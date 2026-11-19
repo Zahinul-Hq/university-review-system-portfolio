@@ -1,0 +1,90 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793690595460,
+      "tag": "0000_easy_mimic",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793777268254,
+      "tag": "0001_superb_wolfpack",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793852705148,
+      "tag": "0002_big_tarot",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793873430899,
+      "tag": "0003_flawless_spectrum",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793939361882,
+      "tag": "0004_worthless_terrax",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794045437256,
+      "tag": "0005_university_review_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794120277183,
+      "tag": "0006_marvelous_wolfpack",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794170275719,
+      "tag": "0007_primary_email_verification",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1794397824618,
+      "tag": "0008_pink_microchip",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1794438641969,
+      "tag": "0009_bizarre_butterfly",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1794480000000,
+      "tag": "0010_admin_role",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1794598150412,
+      "tag": "0011_review_rating_range",
+      "breakpoints": true
+    }
+  ]
+}

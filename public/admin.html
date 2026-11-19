@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="solid" data-motion>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Chirpy: Admin Panel</title>
+    <meta name="description" content="Chirpy university review administration and moderation panel.">
+    <meta name="site-kind" content="software">
+    <meta name="page-type" content="software">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="./assets/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/system.css">
+    <link rel="stylesheet" href="./assets/motion/motion.css">
+    <link rel="stylesheet" href="./assets/layout/layout.css">
+    <link rel="stylesheet" href="./styles/theme.css">
+    <link rel="stylesheet" href="./styles/admin.css">
+    <script>
+      document.documentElement.classList.add("m-enter");
+      setTimeout(() => document.documentElement.classList.add("m-enter-done"), 700);
+    </script>
+  </head>
+  <body class="admin-body">
+    <header class="app-header">
+      <div class="wrap app-header__inner">
+        <a class="skip-link" href="#admin-main">Skip to content</a>
+        <a class="app-brand" href="./posts.html" aria-label="Chirpy home">
+          <img src="./assets/logo.png" alt="" width="40" height="40">
+          <span>Chirpy</span>
+        </a>
+        <nav class="app-nav" aria-label="Main Navigation">
+          <a class="app-nav__link" href="./posts.html">Reviews</a>
+          <a class="app-nav__link" href="./university-reviews.html">
+            <span class="app-nav__full">University ratings</span>
+            <span class="app-nav__short">Ratings</span>
+          </a>
+          <a class="app-nav__link" href="./rate-university.html">Rate</a>
+          <a class="app-nav__link" href="./index.html">Account</a>
+          <a class="app-nav__link app-nav__link--active" href="./admin.html" aria-current="page">Admin</a>
+        </nav>
+        <div class="app-header__user" id="header-user-status">
+          <span class="user-pill">Checking access...</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="admin-main" class="admin-main">
+      <!-- Unauthorized Gate -->
+      <section class="wrap admin-unauth" id="admin-unauth" hidden>
+        <div class="unauth-card">
+          <div class="unauth-icon" aria-hidden="true">🔒</div>
+          <h2>Administrator Access Required</h2>
+          <p id="unauth-message">You must be signed in with an administrator account to view the Chirpy control panel.</p>
+          <div class="unauth-actions">
+            <a class="btn btn--primary" href="./index.html">Sign in with Admin Account</a>
+            <a class="btn btn--secondary" href="./posts.html">Back to Reviews</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Admin Workspace -->
+      <div id="admin-workspace" hidden>
+        <!-- Hero & KPI Metrics -->
+        <section class="admin-hero">
+          <div class="wrap">
+            <div class="admin-hero__head">
+              <div>
+                <p class="admin-kicker">Operations & Moderation</p>
+                <h1 class="admin-title">Admin Control Panel</h1>
+              </div>
+              <div class="admin-hero__actions">
+                <button type="button" class="btn btn--secondary btn--sm" id="btn-refresh-all">
+                  <span class="btn-icon">↺</span> Refresh Data
+                </button>
+              </div>
+            </div>
+
+            <!-- KPI Metric Cards Grid -->
+            <div class="kpi-grid" id="kpi-grid" aria-label="System Metrics">
+              <div class="kpi-card">
+                <span class="kpi-card__label">Total Users</span>
+                <span class="kpi-card__value" id="kpi-total-users">-</span>
+                <span class="kpi-card__sub" id="kpi-verified-sub">- verified students</span>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-card__label">Total Reviews</span>
+                <span class="kpi-card__value" id="kpi-total-reviews">-</span>
+                <span class="kpi-card__sub" id="kpi-reviews-sub">- published</span>
+              </div>
+              <div class="kpi-card kpi-card--alert" id="kpi-reports-card">
+                <span class="kpi-card__label">Pending Reports</span>
+                <span class="kpi-card__value" id="kpi-pending-reports">-</span>
+                <span class="kpi-card__sub">Needs review</span>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-card__label">Academic Catalog</span>
+                <span class="kpi-card__value" id="kpi-universities">-</span>
+                <span class="kpi-card__sub" id="kpi-catalog-sub">- departments</span>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-card__label">Active Tags</span>
+                <span class="kpi-card__value" id="kpi-tags">-</span>
+                <span class="kpi-card__sub">Review topics</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Admin Navigation Tabs -->
+        <section class="admin-tabs-section">
+          <div class="wrap">
+            <div class="admin-tabs" role="tablist" aria-label="Admin Navigation Tabs">
+              <button
+                type="button"
+                role="tab"
+                class="admin-tab admin-tab--active"
+                id="tab-btn-reports"
+                aria-selected="true"
+                aria-controls="panel-reports"
+              >
+                Reports Queue <span class="tab-badge" id="reports-tab-badge">0</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                class="admin-tab"
+                id="tab-btn-posts"
+                aria-selected="false"
+                aria-controls="panel-posts"
+              >
+                Reviews & Posts
+              </button>
+              <button
+                type="button"
+                role="tab"
+                class="admin-tab"
+                id="tab-btn-users"
+                aria-selected="false"
+                aria-controls="panel-users"
+              >
+                Students & Users
+              </button>
+              <button
+                type="button"
+                role="tab"
+                class="admin-tab"
+                id="tab-btn-catalog"
+                aria-selected="false"
+                aria-controls="panel-catalog"
+              >
+                Universities & Departments
+              </button>
+              <button
+                type="button"
+                role="tab"
+                class="admin-tab"
+                id="tab-btn-tags"
+                aria-selected="false"
+                aria-controls="panel-tags"
+              >
+                Review Tags
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab Panels Container -->
+        <div class="wrap admin-content">
+          <!-- 1. Reports Queue Panel -->
+          <section
+            class="admin-panel"
+            id="panel-reports"
+            role="tabpanel"
+            aria-labelledby="tab-btn-reports"
+          >
+            <div class="panel-header">
+              <div class="panel-header__titles">
+                <h2>Moderation Reports Queue</h2>
+                <p>Review community reports and moderate flagged student reviews.</p>
+              </div>
+              <div class="panel-filters">
+                <label for="reports-status-filter" class="sr-only">Filter by Status</label>
+                <select id="reports-status-filter" class="select-input">
+                  <option value="">All Statuses</option>
+                  <option value="pending" selected>Pending Only</option>
+                  <option value="actioned">Actioned</option>
+                  <option value="dismissed">Dismissed</option>
+                  <option value="reviewed">Reviewed</option>
+                </select>
+                <button type="button" class="btn btn--secondary btn--sm" id="btn-refresh-reports">
+                  Refresh
+                </button>
+              </div>
+            </div>
+
+            <div class="panel-table-wrap" id="reports-table-wrap">
+              <div class="admin-loading" id="reports-loading">Loading reports queue...</div>
+              <table class="admin-table" id="reports-table" hidden>
+                <thead>
+                  <tr>
+                    <th>Reported Content</th>
+                    <th>Reason & Details</th>
+                    <th>Reporter</th>
+                    <th>Reported Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="reports-tbody"></tbody>
+              </table>
+              <div class="admin-empty" id="reports-empty" hidden>
+                <p>No reports found matching your current filter.</p>
+              </div>
+            </div>
+
+            <div class="pagination-bar" id="reports-pagination" hidden>
+              <button type="button" class="btn btn--secondary btn--sm" id="reports-prev-page" disabled>Previous</button>
+              <span class="pagination-info" id="reports-page-info">Page 1 of 1</span>
+              <button type="button" class="btn btn--secondary btn--sm" id="reports-next-page" disabled>Next</button>
+            </div>
+          </section>
+
+          <!-- 2. Reviews Moderation Panel -->
+          <section
+            class="admin-panel"
+            id="panel-posts"
+            role="tabpanel"
+            aria-labelledby="tab-btn-posts"
+            hidden
+          >
+            <div class="panel-header">
+              <div class="panel-header__titles">
+                <h2>Reviews & Posts Directory</h2>
+                <p>Search, inspect, and moderate all student reviews across all universities.</p>
+              </div>
+              <div class="panel-filters">
+                <input
+                  type="search"
+                  id="posts-search-input"
+                  class="search-input"
+                  placeholder="Search review content..."
+                  aria-label="Search reviews"
+                >
+                <select id="posts-status-filter" class="select-input">
+                  <option value="">All Statuses</option>
+                  <option value="published">Published</option>
+                  <option value="hidden">Hidden</option>
+                </select>
+                <select id="posts-sentiment-filter" class="select-input">
+                  <option value="">All Sentiments</option>
+                  <option value="positive">Positive</option>
+                  <option value="neutral">Neutral</option>
+                  <option value="negative">Negative</option>
+                </select>
+                <button type="button" class="btn btn--secondary btn--sm" id="btn-filter-posts">
+                  Filter
+                </button>
+              </div>
+            </div>
+
+            <div class="panel-table-wrap" id="posts-table-wrap">
+              <div class="admin-loading" id="posts-loading">Loading reviews...</div>
+              <table class="admin-table" id="posts-table" hidden>
+                <thead>
+                  <tr>
+                    <th>Review Content</th>
+                    <th>Author & Affiliation</th>
+                    <th>Sentiment</th>
+                    <th>Score / Votes</th>
+                    <th>Reports</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="posts-tbody"></tbody>
+              </table>
+              <div class="admin-empty" id="posts-empty" hidden>
+                <p>No reviews match the specified criteria.</p>
+              </div>
+            </div>
+
+            <div class="pagination-bar" id="posts-pagination" hidden>
+              <button type="button" class="btn btn--secondary btn--sm" id="posts-prev-page" disabled>Previous</button>
+              <span class="pagination-info" id="posts-page-info">Page 1 of 1</span>
+              <button type="button" class="btn btn--secondary btn--sm" id="posts-next-page" disabled>Next</button>
+            </div>
+          </section>
+
+          <!-- 3. Student & User Management Panel -->
+          <section
+            class="admin-panel"
+            id="panel-users"
+            role="tabpanel"
+            aria-labelledby="tab-btn-users"
+            hidden
+          >
+            <div class="panel-header">
+              <div class="panel-header__titles">
+                <h2>Students & User Management</h2>
+                <p>Verify student university affiliations, manage account roles, and review registrations.</p>
+              </div>
+              <div class="panel-filters">
+                <input
+                  type="search"
+                  id="users-search-input"
+                  class="search-input"
+                  placeholder="Search username or email..."
+                  aria-label="Search users"
+                >
+                <select id="users-verified-filter" class="select-input">
+                  <option value="">All Affiliations</option>
+                  <option value="true">University Verified Only</option>
+                  <option value="false">Unverified Affiliation Only</option>
+                </select>
+                <select id="users-role-filter" class="select-input">
+                  <option value="">All Roles</option>
+                  <option value="user">Students (User)</option>
+                  <option value="admin">Administrators</option>
+                </select>
+                <button type="button" class="btn btn--secondary btn--sm" id="btn-filter-users">
+                  Search
+                </button>
+              </div>
+            </div>
+
+            <div class="panel-table-wrap" id="users-table-wrap">
+              <div class="admin-loading" id="users-loading">Loading users...</div>
+              <table class="admin-table" id="users-table" hidden>
+                <thead>
+                  <tr>
+                    <th>User & Email</th>
+                    <th>University & Department</th>
+                    <th>Email Verified</th>
+                    <th>University Affiliation</th>
+                    <th>Role</th>
+                    <th>Reviews</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="users-tbody"></tbody>
+              </table>
+              <div class="admin-empty" id="users-empty" hidden>
+                <p>No users found matching your search.</p>
+              </div>
+            </div>
+
+            <div class="pagination-bar" id="users-pagination" hidden>
+              <button type="button" class="btn btn--secondary btn--sm" id="users-prev-page" disabled>Previous</button>
+              <span class="pagination-info" id="users-page-info">Page 1 of 1</span>
+              <button type="button" class="btn btn--secondary btn--sm" id="users-next-page" disabled>Next</button>
+            </div>
+          </section>
+
+          <!-- 4. Academic Catalog Panel -->
+          <section
+            class="admin-panel"
+            id="panel-catalog"
+            role="tabpanel"
+            aria-labelledby="tab-btn-catalog"
+            hidden
+          >
+            <div class="catalog-grid">
+              <!-- Universities Column -->
+              <div class="catalog-col">
+                <div class="panel-header">
+                  <div>
+                    <h2>Universities</h2>
+                    <p>Institutions available for student reviews.</p>
+                  </div>
+                  <button type="button" class="btn btn--primary btn--sm" id="btn-add-university">
+                    + Add University
+                  </button>
+                </div>
+                <div class="catalog-list" id="universities-list">
+                  <div class="admin-loading" id="uni-loading">Loading universities...</div>
+                </div>
+              </div>
+
+              <!-- Departments Column -->
+              <div class="catalog-col">
+                <div class="panel-header">
+                  <div>
+                    <h2>Departments</h2>
+                    <p>Academic faculties and departments.</p>
+                  </div>
+                  <button type="button" class="btn btn--primary btn--sm" id="btn-add-department">
+                    + Add Department
+                  </button>
+                </div>
+                <div class="catalog-list" id="departments-list">
+                  <div class="admin-loading" id="dept-loading">Loading departments...</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5. Review Tags Panel -->
+          <section
+            class="admin-panel"
+            id="panel-tags"
+            role="tabpanel"
+            aria-labelledby="tab-btn-tags"
+            hidden
+          >
+            <div class="panel-header">
+              <div class="panel-header__titles">
+                <h2>Review Topic Tags</h2>
+                <p>Categories and tags students select when reviewing their university experience.</p>
+              </div>
+              <button type="button" class="btn btn--primary btn--sm" id="btn-add-tag">
+                + Add New Tag
+              </button>
+            </div>
+
+            <div class="panel-table-wrap">
+              <div class="admin-loading" id="tags-loading">Loading review tags...</div>
+              <table class="admin-table" id="tags-table" hidden>
+                <thead>
+                  <tr>
+                    <th>Display Order</th>
+                    <th>Tag Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tags-tbody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Generic Confirmation Modal -->
+    <dialog id="admin-confirm-dialog" class="admin-dialog">
+      <form method="dialog" class="dialog-content">
+        <h3 id="confirm-title">Confirm Action</h3>
+        <p id="confirm-message">Are you sure you want to proceed?</p>
+        <div class="dialog-actions">
+          <button type="button" class="btn btn--secondary" id="confirm-cancel-btn">Cancel</button>
+          <button type="button" class="btn btn--primary" id="confirm-ok-btn">Confirm</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- University Create/Edit Modal -->
+    <dialog id="admin-uni-dialog" class="admin-dialog">
+      <form id="uni-form" class="dialog-content" novalidate>
+        <h3 id="uni-dialog-title">Add University</h3>
+        <input type="hidden" id="uni-id-input">
+        <div class="field">
+          <label for="uni-name-input">University Full Name</label>
+          <input type="text" id="uni-name-input" class="text-input" placeholder="e.g. Stanford University" required>
+        </div>
+        <div class="field">
+          <label for="uni-shortname-input">Short Name / Acronym</label>
+          <input type="text" id="uni-shortname-input" class="text-input" placeholder="e.g. Stanford" required>
+        </div>
+        <p class="dialog-error" id="uni-dialog-error" hidden></p>
+        <div class="dialog-actions">
+          <button type="button" class="btn btn--secondary" id="uni-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="uni-save-btn">Save University</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Department Create/Edit Modal -->
+    <dialog id="admin-dept-dialog" class="admin-dialog">
+      <form id="dept-form" class="dialog-content" novalidate>
+        <h3 id="dept-dialog-title">Add Department</h3>
+        <input type="hidden" id="dept-id-input">
+        <div class="field">
+          <label for="dept-name-input">Department Name</label>
+          <input type="text" id="dept-name-input" class="text-input" placeholder="e.g. Computer Science" required>
+        </div>
+        <div class="field">
+          <label for="dept-abbrev-input">Abbreviation</label>
+          <input type="text" id="dept-abbrev-input" class="text-input" placeholder="e.g. CS" required>
+        </div>
+        <div class="field">
+          <label for="dept-type-input">Department Type</label>
+          <input type="text" id="dept-type-input" class="text-input" placeholder="e.g. Engineering, Arts, Business" required>
+        </div>
+        <p class="dialog-error" id="dept-dialog-error" hidden></p>
+        <div class="dialog-actions">
+          <button type="button" class="btn btn--secondary" id="dept-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="dept-save-btn">Save Department</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Tag Create/Edit Modal -->
+    <dialog id="admin-tag-dialog" class="admin-dialog">
+      <form id="tag-form" class="dialog-content" novalidate>
+        <h3 id="tag-dialog-title">Add Review Tag</h3>
+        <input type="hidden" id="tag-id-input">
+        <div class="field">
+          <label for="tag-name-input">Tag Name</label>
+          <input type="text" id="tag-name-input" class="text-input" placeholder="e.g. Campus Life" required>
+        </div>
+        <div class="field">
+          <label for="tag-desc-input">Description</label>
+          <textarea id="tag-desc-input" class="textarea-input" rows="2" placeholder="Explain what this tag covers..." required></textarea>
+        </div>
+        <div class="field">
+          <label for="tag-order-input">Display Order (Number)</label>
+          <input type="number" id="tag-order-input" class="text-input" value="1" min="1" required>
+        </div>
+        <div class="field field-checkbox">
+          <label>
+            <input type="checkbox" id="tag-active-input" checked>
+            Active (visible to reviewers)
+          </label>
+        </div>
+        <p class="dialog-error" id="tag-dialog-error" hidden></p>
+        <div class="dialog-actions">
+          <button type="button" class="btn btn--secondary" id="tag-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="tag-save-btn">Save Tag</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Toast Notification Banner -->
+    <div id="admin-toast" class="admin-toast" role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="./assets/system.js"></script>
+    <script type="module" src="./assets/motion/motion.js"></script>
+    <script type="module" src="./scripts/admin-page.js"></script>
+  </body>
+</html>
