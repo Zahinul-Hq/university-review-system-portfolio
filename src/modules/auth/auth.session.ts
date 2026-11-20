@@ -27,6 +27,6 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction) {
     res.status(403).json({ error: "Forbidden: Admin privileges required" });
     return;
   }
-
+  
   next();
 }
